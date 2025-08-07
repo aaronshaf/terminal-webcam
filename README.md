@@ -6,7 +6,8 @@ View your webcam directly in the terminal with zoom capabilities.
 ## Quick Start
 
 ```bash
-npm install -g terminal-webcam
+# Requires Bun to be installed first
+bun install -g terminal-webcam
 tcam
 ```
 
@@ -20,24 +21,21 @@ tcam
 
 ## Requirements
 
-- [Bun](https://bun.sh) runtime (for running from source)
+- [Bun](https://bun.sh) runtime (required)
 - [FFmpeg](https://ffmpeg.org) (for webcam capture)
 - macOS (tested on macOS, uses AVFoundation for camera access)
 - Terminal with Unicode support and color capabilities
 
 ## Installation
 
-### Install globally via npm (Recommended)
+### Install Bun first
 
 ```bash
-# Install globally
-npm install -g terminal-webcam
-
-# Run with the tcam command
-tcam
+# Install Bun if you haven't already
+curl -fsSL https://bun.sh/install | bash
 ```
 
-### Install globally via bun
+### Install terminal-webcam globally
 
 ```bash
 # Install globally with bun

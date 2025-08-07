@@ -34,6 +34,8 @@
   "engines": {
     "bun": ">=1.0.0"
   },
+  "preferGlobal": true,
+  "installNote": "This package requires Bun runtime. Install Bun first: https://bun.sh",
   "devDependencies": {
     "@types/bun": "latest",
     "@types/node": "latest"
