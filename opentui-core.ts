@@ -1,5 +1,5 @@
 // Minimal OpenTUI core implementation for terminal-webcam
-// Based on OpenTUI but simplified for our specific use case
+// Based on OpenTUI (https://github.com/sst/opentui) but simplified for our specific use case
 
 export interface RGBA {
   r: number
