@@ -2,6 +2,8 @@
 
 View your webcam directly in the terminal with zoom capabilities.
 
+[Demo video on X](https://x.com/aaronshaf/status/1953585142771101964)
+
 
 ## Quick Start
 
