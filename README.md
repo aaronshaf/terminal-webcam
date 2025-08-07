@@ -22,7 +22,7 @@ tcam
 
 - [Bun](https://bun.sh) runtime (for running from source)
 - [FFmpeg](https://ffmpeg.org) (for webcam capture)
-- macOS (currently uses AVFoundation for camera access)
+- macOS (tested on macOS, uses AVFoundation for camera access)
 - Terminal with Unicode support and color capabilities
 
 ## Installation
