@@ -53,7 +53,7 @@ tcam
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/terminal-webcam.git
+git clone https://github.com/aaronshaf/terminal-webcam.git
 cd terminal-webcam
 
 # Install dependencies
