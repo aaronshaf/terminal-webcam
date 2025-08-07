@@ -1,8 +1,7 @@
 # Terminal Webcam
 
-A high-quality webcam viewer that runs directly in your terminal with dynamic zoom capabilities.
+View your webcam directly in the terminal with zoom capabilities.
 
-![Terminal Webcam Demo](demo.gif)
 
 ## Quick Start
 
@@ -13,12 +12,11 @@ tcam
 
 ## Features
 
-- 🎥 **Live webcam streaming** directly in your terminal
-- 🔍 **Dynamic zoom** with automatic resolution adjustment for crisp details
-- 🎨 **Multiple display modes**: Pixels, Blocks, Shades, ASCII art
-- 📐 **Pan controls** when zoomed in to navigate the frame
-- 🚀 **High performance** with optimized frame processing
-- 📱 **Smart resolution scaling** - captures at higher resolution when zoomed
+- Live webcam streaming in your terminal
+- Zoom in/out with resolution adjustment
+- Multiple display modes (Pixels, Blocks, Shades, ASCII)
+- Pan controls when zoomed
+- Resolution scales with zoom level
 
 ## Requirements
 
@@ -86,24 +84,7 @@ tcam
 
 ## How it Works
 
-### Dynamic Resolution Scaling
-
-The viewer automatically adjusts the camera capture resolution based on zoom level:
-- **1x zoom**: Captures at ~10x terminal resolution for sharp base quality
-- **2x-4x zoom**: Increases capture resolution proportionally
-- **4x+ zoom**: Captures at maximum available resolution (up to 1920x1080)
-
-This ensures you get real detail enhancement when zooming, not just pixel magnification.
-
-### Intelligent Debouncing
-
-Rapid zoom changes are intelligently batched with a 500ms debounce to prevent crashes and ensure smooth transitions.
-
-### Optimized Rendering
-
-- Efficient direct terminal rendering with ANSI escape codes
-- Processes video frames in RGB24 format for optimal performance
-- Smart pixel sampling with averaging at high zoom levels
+The viewer adjusts camera capture resolution based on zoom level - when you zoom in, it captures at higher resolution to show more detail. Uses FFmpeg for camera access and ANSI escape codes for terminal rendering.
 
 ## Technical Details
 
@@ -128,14 +109,6 @@ brew install ffmpeg
 - Try ASCII or blocks mode instead of pixels mode
 - Ensure no other applications are using the camera
 
-## Future Improvements
-
-- [ ] Linux support (V4L2)
-- [ ] Windows support (DirectShow)
-- [ ] Recording capabilities
-- [ ] Filters and effects
-- [ ] Multiple camera support
-- [ ] Custom color palettes
 
 ## License
 

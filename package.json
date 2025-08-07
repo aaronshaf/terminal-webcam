@@ -1,7 +1,7 @@
 {
   "name": "terminal-webcam",
   "version": "1.0.0",
-  "description": "High-quality webcam viewer in your terminal with dynamic zoom",
+  "description": "Webcam viewer in your terminal with zoom",
   "main": "terminal-webcam.ts",
   "bin": {
     "tcam": "./terminal-webcam.ts"
