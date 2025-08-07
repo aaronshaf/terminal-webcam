@@ -6,7 +6,6 @@ View your webcam directly in the terminal with zoom capabilities.
 ## Quick Start
 
 ```bash
-# Requires Bun to be installed first
 bun install -g terminal-webcam
 tcam
 ```
