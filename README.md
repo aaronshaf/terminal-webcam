@@ -71,13 +71,13 @@ Rapid zoom changes are intelligently batched with a 500ms debounce to prevent cr
 
 ### Optimized Rendering
 
-- Uses OpenTUI's efficient terminal rendering
+- Efficient direct terminal rendering with ANSI escape codes
 - Processes video frames in RGB24 format for optimal performance
 - Smart pixel sampling with averaging at high zoom levels
 
 ## Technical Details
 
-- Built with [OpenTUI](https://github.com/syntaxfm/opentui) for terminal UI
+- Self-contained terminal UI implementation (no external dependencies)
 - Uses FFmpeg's AVFoundation input for macOS camera access
 - Written in TypeScript, runs on Bun runtime
 - Captures at 30fps, displays at 15fps for balanced performance
@@ -113,4 +113,4 @@ MIT
 
 ## Credits
 
-Built with [OpenTUI](https://github.com/syntaxfm/opentui) and powered by [Bun](https://bun.sh).
+Powered by [Bun](https://bun.sh) runtime and FFmpeg.

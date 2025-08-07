@@ -4,7 +4,7 @@ import {
   TextRenderable,
   type CliRenderer,
   RGBA,
-} from "@opentui/core"
+} from "./opentui-core"
 import { spawn, execSync } from 'child_process';
 
 // Get first camera
