@@ -116,6 +116,8 @@ class SimpleCliRenderer implements CliRenderer {
     this.eventHandlers.get(event)!.push(handler)
   }
   
+  private lastRenderState: Map<string, string> = new Map()
+  
   private renderLoop() {
     if (!this.running) return
     
@@ -123,42 +125,52 @@ class SimpleCliRenderer implements CliRenderer {
     const sorted = Array.from(this.renderables.values()).sort((a, b) => a.zIndex - b.zIndex)
     
     for (const renderable of sorted) {
-      // Move cursor to position
-      this.stdout.write(`\x1b[${renderable.y + 1};${renderable.x + 1}H`)
+      // Create a hash of the renderable's current state
+      const stateHash = `${renderable.content}|${renderable.fg}|${renderable.bg}|${renderable.x}|${renderable.y}`
+      const lastState = this.lastRenderState.get(renderable.id)
       
-      // Set colors if provided
-      if (renderable.fg || renderable.bg) {
-        let colorCode = ''
+      // Only render if the state has changed
+      if (lastState !== stateHash) {
+        // Move cursor to position
+        this.stdout.write(`\x1b[${renderable.y + 1};${renderable.x + 1}H`)
         
-        if (renderable.fg) {
-          // Convert hex to RGB
-          const fg = this.hexToRgb(renderable.fg)
-          if (fg) {
-            colorCode += `\x1b[38;2;${fg.r};${fg.g};${fg.b}m`
+        // Set colors if provided
+        if (renderable.fg || renderable.bg) {
+          let colorCode = ''
+          
+          if (renderable.fg) {
+            // Convert hex to RGB
+            const fg = this.hexToRgb(renderable.fg)
+            if (fg) {
+              colorCode += `\x1b[38;2;${fg.r};${fg.g};${fg.b}m`
+            }
           }
+          
+          if (renderable.bg) {
+            const bg = this.hexToRgb(renderable.bg)
+            if (bg) {
+              colorCode += `\x1b[48;2;${bg.r};${bg.g};${bg.b}m`
+            }
+          }
+          
+          this.stdout.write(colorCode)
         }
         
-        if (renderable.bg) {
-          const bg = this.hexToRgb(renderable.bg)
-          if (bg) {
-            colorCode += `\x1b[48;2;${bg.r};${bg.g};${bg.b}m`
-          }
+        // Write content
+        this.stdout.write(renderable.content)
+        
+        // Reset colors
+        if (renderable.fg || renderable.bg) {
+          this.stdout.write('\x1b[0m')
         }
         
-        this.stdout.write(colorCode)
-      }
-      
-      // Write content
-      this.stdout.write(renderable.content)
-      
-      // Reset colors
-      if (renderable.fg || renderable.bg) {
-        this.stdout.write('\x1b[0m')
+        // Update the last render state
+        this.lastRenderState.set(renderable.id, stateHash)
       }
     }
     
     // Schedule next frame
-    setTimeout(() => this.renderLoop(), 16) // ~60fps
+    setTimeout(() => this.renderLoop(), 33) // ~30fps, more reasonable for terminal
   }
   
   private hexToRgb(hex: string): { r: number, g: number, b: number } | null {
