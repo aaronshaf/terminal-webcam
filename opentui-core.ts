@@ -134,6 +134,14 @@ class SimpleCliRenderer implements CliRenderer {
         // Move cursor to position
         this.stdout.write(`\x1b[${renderable.y + 1};${renderable.x + 1}H`)
         
+        // For high z-index items (status bars), clear the area first
+        if (renderable.zIndex >= 1000 && renderable.bg) {
+          // Clear from cursor to end of line for status bars
+          this.stdout.write('\x1b[K')
+          // Move back to position
+          this.stdout.write(`\x1b[${renderable.y + 1};${renderable.x + 1}H`)
+        }
+        
         // Set colors if provided
         if (renderable.fg || renderable.bg) {
           let colorCode = ''

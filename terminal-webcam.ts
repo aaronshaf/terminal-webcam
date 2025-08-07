@@ -150,7 +150,7 @@ class WebcamViewer {
       y: 0,
       fg: "#FFFFFF",
       bg: "#333333",
-      zIndex: 10,
+      zIndex: 1000,
     })
     this.renderer.add(status)
 
@@ -161,7 +161,7 @@ class WebcamViewer {
       y: 0,
       fg: "#00FF00",
       bg: "#333333",
-      zIndex: 10,
+      zIndex: 1000,
     })
     this.renderer.add(mode)
     
@@ -172,7 +172,7 @@ class WebcamViewer {
       y: this.termHeight - 1,
       fg: "#00FFFF",
       bg: "#111111",
-      zIndex: 10,
+      zIndex: 1000,
     })
     this.renderer.add(resolution)
   }
@@ -345,6 +345,10 @@ class WebcamViewer {
     // When zoomed, we show a portion of the captured video
     // The capture resolution is already adjusted for zoom level
     
+    // Adjust for the fact that we're using termHeight-2 for display (skip top and bottom rows)
+    const displayHeight = this.termHeight - 2
+    const adjustedY = termY - 1 // Shift down by 1 since we skip row 0
+    
     // Calculate viewport in the captured image
     const viewWidth = this.captureWidth / this.zoomLevel
     const viewHeight = this.captureHeight / this.zoomLevel
@@ -355,7 +359,7 @@ class WebcamViewer {
     
     // Map terminal position to video position
     const videoX = Math.floor(startX + (termX / this.termWidth) * viewWidth)
-    const videoY = Math.floor(startY + (termY / this.termHeight) * viewHeight)
+    const videoY = Math.floor(startY + (adjustedY / displayHeight) * viewHeight)
     
     // Clamp to bounds
     const x = Math.max(0, Math.min(videoX, this.captureWidth - 1))
@@ -402,8 +406,13 @@ class WebcamViewer {
   }
 
   private renderFrame() {
-    // Render each terminal character
+    // Render each terminal character, but skip status bar rows
     for (let y = 0; y < this.termHeight; y++) {
+      // Skip the top row (status bar) and bottom row (resolution indicator)
+      if (y === 0 || y === this.termHeight - 1) {
+        continue
+      }
+      
       for (let x = 0; x < this.termWidth; x++) {
         // Sample video
         const { r, g, b } = this.sampleVideoPixel(x, y)
