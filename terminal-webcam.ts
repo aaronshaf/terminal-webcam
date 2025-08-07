@@ -180,7 +180,6 @@ class WebcamViewer {
   private async startFFmpeg() {
     // Prevent concurrent restarts
     if (this.isRestarting) {
-      console.log('Already restarting, skipping...')
       return
     }
     
@@ -196,7 +195,7 @@ class WebcamViewer {
         // Give it time to clean up
         await new Promise(resolve => setTimeout(resolve, 300))
       } catch (e) {
-        console.error('Error killing ffmpeg:', e)
+        // Silently handle error
       }
     }
     
@@ -215,7 +214,7 @@ class WebcamViewer {
       resEl.content = `Capture: ${this.captureWidth}x${this.captureHeight} (${pixels}K pixels) | Zoom: ${this.zoomLevel.toFixed(1)}x`
     }
     
-    console.log(`Starting capture at ${this.captureWidth}x${this.captureHeight} for zoom ${this.zoomLevel.toFixed(1)}x`)
+    // Starting capture at new resolution
     
     try {
       // Start ffmpeg - NO SCALING, capture at exact resolution we need
@@ -240,21 +239,30 @@ class WebcamViewer {
       })
 
       this.ffmpeg.stderr?.on('data', (data: Buffer) => {
+        // Suppress all FFmpeg errors during runtime to prevent them from showing on screen
+        // Only log critical errors to a debug log if needed
         const error = data.toString()
-        if (!error.includes('Capture buffer') && !error.includes('VIDIOC')) {
-          console.error('FFmpeg:', error)
+        // Completely suppress common non-critical warnings
+        if (!error.includes('Capture buffer') && 
+            !error.includes('VIDIOC') && 
+            !error.includes('Selected pixel format') &&
+            !error.includes('Supported pixel formats') &&
+            !error.includes('avfoundation @') &&
+            !error.includes('NSCameraUseContinuityCameraDeviceType')) {
+          // Only log unexpected errors, but don't write to console during runtime
+          // Could write to a log file if debugging is needed
         }
       })
 
       this.ffmpeg.on('exit', (code: number) => {
         if (!this.isRestarting) {
-          console.log(`FFmpeg exited unexpectedly: ${code}`)
+          // FFmpeg exited unexpectedly - handle silently
           // Don't call cleanup here to avoid exit during zoom
         }
       })
       
       this.ffmpeg.on('error', (err: Error) => {
-        console.error('FFmpeg spawn error:', err)
+        // Handle spawn error silently
         this.isRestarting = false
       })
       
@@ -276,7 +284,7 @@ class WebcamViewer {
       }
       
     } catch (e) {
-      console.error('Failed to start ffmpeg:', e)
+      // Failed to start ffmpeg - handle silently
       this.isRestarting = false
     }
   }
