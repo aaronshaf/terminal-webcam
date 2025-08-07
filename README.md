@@ -1,0 +1,116 @@
+# Terminal Webcam
+
+A high-quality webcam viewer that runs directly in your terminal with dynamic zoom capabilities.
+
+![Terminal Webcam Demo](demo.gif)
+
+## Features
+
+- 🎥 **Live webcam streaming** directly in your terminal
+- 🔍 **Dynamic zoom** with automatic resolution adjustment for crisp details
+- 🎨 **Multiple display modes**: Pixels, Blocks, Shades, ASCII art
+- 📐 **Pan controls** when zoomed in to navigate the frame
+- 🚀 **High performance** with optimized frame processing
+- 📱 **Smart resolution scaling** - captures at higher resolution when zoomed
+
+## Requirements
+
+- [Bun](https://bun.sh) runtime
+- [FFmpeg](https://ffmpeg.org) (for webcam capture)
+- macOS (currently uses AVFoundation for camera access)
+- Terminal with Unicode support and color capabilities
+
+## Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/terminal-webcam.git
+cd terminal-webcam
+
+# Install dependencies
+bun install
+```
+
+## Usage
+
+```bash
+# Run the webcam viewer
+bun terminal-webcam.ts
+
+# Or use the npm script
+bun run start
+```
+
+## Controls
+
+| Key | Action |
+|-----|--------|
+| `1` | Pixels mode (full color blocks) |
+| `2` | Blocks mode (gradient blocks) |
+| `3` | Shades mode (shaded characters) |
+| `4` | ASCII mode (ASCII art style) |
+| `+`/`-` | Zoom in/out (increases capture resolution) |
+| `↑`/`↓`/`←`/`→` | Pan when zoomed |
+| `0` | Reset zoom to 1x |
+| `Q` | Quit |
+
+## How it Works
+
+### Dynamic Resolution Scaling
+
+The viewer automatically adjusts the camera capture resolution based on zoom level:
+- **1x zoom**: Captures at ~10x terminal resolution for sharp base quality
+- **2x-4x zoom**: Increases capture resolution proportionally
+- **4x+ zoom**: Captures at maximum available resolution (up to 1920x1080)
+
+This ensures you get real detail enhancement when zooming, not just pixel magnification.
+
+### Intelligent Debouncing
+
+Rapid zoom changes are intelligently batched with a 500ms debounce to prevent crashes and ensure smooth transitions.
+
+### Optimized Rendering
+
+- Uses OpenTUI's efficient terminal rendering
+- Processes video frames in RGB24 format for optimal performance
+- Smart pixel sampling with averaging at high zoom levels
+
+## Technical Details
+
+- Built with [OpenTUI](https://github.com/syntaxfm/opentui) for terminal UI
+- Uses FFmpeg's AVFoundation input for macOS camera access
+- Written in TypeScript, runs on Bun runtime
+- Captures at 30fps, displays at 15fps for balanced performance
+
+## Troubleshooting
+
+### Camera not found
+Make sure to grant terminal/IDE camera permissions in macOS System Preferences → Privacy & Security → Camera.
+
+### FFmpeg not installed
+Install FFmpeg using Homebrew:
+```bash
+brew install ffmpeg
+```
+
+### Performance issues
+- Reduce terminal window size for better performance
+- Try ASCII or blocks mode instead of pixels mode
+- Ensure no other applications are using the camera
+
+## Future Improvements
+
+- [ ] Linux support (V4L2)
+- [ ] Windows support (DirectShow)
+- [ ] Recording capabilities
+- [ ] Filters and effects
+- [ ] Multiple camera support
+- [ ] Custom color palettes
+
+## License
+
+MIT
+
+## Credits
+
+Built with [OpenTUI](https://github.com/syntaxfm/opentui) and powered by [Bun](https://bun.sh).

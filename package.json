@@ -1,0 +1,29 @@
+{
+  "name": "terminal-webcam",
+  "version": "1.0.0",
+  "description": "High-quality webcam viewer in your terminal with dynamic zoom",
+  "main": "terminal-webcam.ts",
+  "scripts": {
+    "start": "bun terminal-webcam.ts",
+    "dev": "bun --watch terminal-webcam.ts"
+  },
+  "keywords": [
+    "webcam",
+    "terminal",
+    "cli",
+    "camera",
+    "zoom",
+    "opentui"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@opentui/core": "^0.1.3"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  }
+}
