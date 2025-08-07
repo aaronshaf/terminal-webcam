@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "High-quality webcam viewer in your terminal with dynamic zoom",
   "main": "terminal-webcam.ts",
+  "bin": {
+    "tcam": "./terminal-webcam.ts"
+  },
   "scripts": {
     "start": "bun terminal-webcam.ts",
     "dev": "bun --watch terminal-webcam.ts"
@@ -12,10 +15,25 @@
     "terminal",
     "cli",
     "camera",
-    "zoom"
+    "zoom",
+    "tcam",
+    "video",
+    "streaming",
+    "ascii-art"
   ],
   "author": "",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/terminal-webcam.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/terminal-webcam/issues"
+  },
+  "homepage": "https://github.com/yourusername/terminal-webcam#readme",
+  "engines": {
+    "bun": ">=1.0.0"
+  },
   "devDependencies": {
     "@types/bun": "latest",
     "@types/node": "latest"

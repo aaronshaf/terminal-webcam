@@ -4,6 +4,13 @@ A high-quality webcam viewer that runs directly in your terminal with dynamic zo
 
 ![Terminal Webcam Demo](demo.gif)
 
+## Quick Start
+
+```bash
+npm install -g terminal-webcam
+tcam
+```
+
 ## Features
 
 - 🎥 **Live webcam streaming** directly in your terminal
@@ -15,12 +22,34 @@ A high-quality webcam viewer that runs directly in your terminal with dynamic zo
 
 ## Requirements
 
-- [Bun](https://bun.sh) runtime
+- [Bun](https://bun.sh) runtime (for running from source)
 - [FFmpeg](https://ffmpeg.org) (for webcam capture)
 - macOS (currently uses AVFoundation for camera access)
 - Terminal with Unicode support and color capabilities
 
 ## Installation
+
+### Install globally via npm (Recommended)
+
+```bash
+# Install globally
+npm install -g terminal-webcam
+
+# Run with the tcam command
+tcam
+```
+
+### Install globally via bun
+
+```bash
+# Install globally with bun
+bun install -g terminal-webcam
+
+# Run with the tcam command
+tcam
+```
+
+### Run from source
 
 ```bash
 # Clone the repository
@@ -29,16 +58,17 @@ cd terminal-webcam
 
 # Install dependencies
 bun install
+
+# Run directly
+bun terminal-webcam.ts
 ```
 
 ## Usage
 
-```bash
-# Run the webcam viewer
-bun terminal-webcam.ts
+Once installed globally, simply run:
 
-# Or use the npm script
-bun run start
+```bash
+tcam
 ```
 
 ## Controls
